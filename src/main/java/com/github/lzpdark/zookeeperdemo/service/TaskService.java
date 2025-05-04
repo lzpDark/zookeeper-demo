@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * @author lzp
  */
@@ -27,6 +29,9 @@ public class TaskService {
             return;
         }
         // TODO: assign tasks to followers
+        //  1. get n tasks
+        //  2. assign to followers
+        Set<String> followerNames = electionService.getFollowerNames();
     }
 
     @Scheduled(fixedRate = 30_000)
@@ -35,6 +40,13 @@ public class TaskService {
             return;
         }
         // TODO: get failed tasks, re-assign to followers or remove from tasks
+    }
+
+    @Scheduled(fixedRate = 30_000)
+    public void assignTimeoutTasks() {
+        // TODO: get timeout task
+        Set<String> followerNames = electionService.getFollowerNames();
+        // TODO: if not assigned to followers, reassign
     }
 
     // 根据选举状态执行相应逻辑的示例方法
